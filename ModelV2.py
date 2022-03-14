@@ -204,13 +204,14 @@ def DecoderTransposeX2Block(filters, stage, use_batchnorm=False):
 
 def model(input_shape,classes=2,activation='softmax',use_batchnorm=True,tur='3do_mya'):
 
+    # RGB input conversion to Gray with Point-wise convolution
     img_input = layers.Input(shape=input_shape)
     if input_shape[2]!=1:
         modelInput = layers.Conv2D(1, (1, 1),
                           padding='same',
                           use_bias=False,
                           strides=(1, 1),
-                          name='RGB_Input_ReshapeToGray')(modelInput)
+                          name='RGB_Input_ReshapeToGray')(img_input)
     else:
         modelInput = img_input
 
